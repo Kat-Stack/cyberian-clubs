@@ -1,0 +1,557 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>ACCRU</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: a field manual for a frontier research club. Sticky signal-strip nav, one "page" at a time, long-form manifesto columns with mono instrument labels. */
+:root {
+  --bg: #E9EDF1;
+  --surface: #F6F8FA;
+  --ink: #0F1A24;
+  --muted: #4E5C6A;
+  --line: #C3CDD7;
+  --accent: #C9421B;
+  --signal: #1D6A86;
+  --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --body: "Literata", Georgia, "Times New Roman", serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0B1218; --surface: #111B24; --ink: #E4EAF0; --muted: #93A2B1;
+    --line: #233140; --accent: #FF6B3D; --signal: #62B4D2; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0B1218; --surface: #111B24; --ink: #E4EAF0; --muted: #93A2B1;
+  --line: #233140; --accent: #FF6B3D; --signal: #62B4D2; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 17px; line-height: 1.6;
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Nav */
+header.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  background: var(--bg); border-bottom: 1px solid var(--line);
+}
+header.top .wrap { display: flex; align-items: center; gap: 20px; padding-block: 10px; }
+.brand {
+  font-family: var(--display); font-weight: 900; font-size: 26px; letter-spacing: .04em;
+  text-decoration: none; flex-shrink: 0;
+}
+.brand span { color: var(--accent); }
+nav.pages { overflow-x: auto; min-width: 0; scrollbar-width: none; }
+nav.pages ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+nav.pages a {
+  display: block; white-space: nowrap; text-decoration: none;
+  font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em;
+  padding: 8px 10px; color: var(--muted); border-bottom: 2px solid transparent;
+}
+nav.pages a:hover { color: var(--ink); }
+nav.pages a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
+
+/* Shared type */
+.label {
+  font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--signal);
+}
+h1, h2, h3 { font-family: var(--display); line-height: .95; margin: 0; text-wrap: balance; }
+h2 { font-size: clamp(44px, 8vw, 84px); font-weight: 900; text-transform: uppercase; letter-spacing: .01em; }
+h3 { font-size: 30px; font-weight: 800; text-transform: uppercase; letter-spacing: .02em; }
+p { margin: 0; }
+.prose { max-width: 64ch; display: grid; gap: 1em; }
+.lede { font-size: clamp(20px, 2.6vw, 24px); line-height: 1.45; max-width: 36ch; }
+em.k { font-style: normal; color: var(--accent); }
+
+main section.page { padding-block: 48px 72px; display: grid; gap: 56px; }
+.page-head { display: grid; gap: 14px; border-bottom: 1px solid var(--line); padding-bottom: 32px; }
+
+/* Hero */
+.hero { display: grid; gap: 22px; padding-top: 12px; }
+.mark {
+  font-size: clamp(110px, 26vw, 280px); font-weight: 900; letter-spacing: -.01em; line-height: .8;
+  display: flex; align-items: flex-end;
+}
+.mark .a { color: var(--accent); }
+.expand { font-family: var(--mono); font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.expand b { color: var(--ink); font-weight: 500; }
+#aword { display: inline-block; min-width: 7ch; color: var(--accent); transition: opacity .35s; }
+.tagline {
+  font-family: var(--display); font-weight: 800; font-size: clamp(30px, 5vw, 48px);
+  text-transform: uppercase; line-height: 1; letter-spacing: .02em;
+}
+.tagline span:nth-child(2) { color: var(--signal); }
+.tagline span:nth-child(3) { color: var(--accent); }
+
+.bridge {
+  border-left: 3px solid var(--accent); padding: 4px 0 4px 20px; max-width: 60ch;
+  font-size: 19px; font-style: italic;
+}
+
+/* Index of pages */
+.doors { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.door { background: var(--surface); padding: 22px; display: grid; gap: 10px; text-decoration: none; align-content: start; }
+.door:hover { background: var(--bg); }
+.door h3 { font-size: 26px; }
+.door p { color: var(--muted); font-size: 15px; }
+.door .go { font-family: var(--mono); font-size: 12px; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; }
+
+/* Principles list */
+.principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px 40px; }
+.principle { display: grid; gap: 8px; align-content: start; border-top: 1px solid var(--line); padding-top: 16px; }
+.principle p { color: var(--muted); }
+
+/* Two-col split */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 48px; align-items: start; }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; gap: 28px; } }
+
+/* Glossary */
+dl.gloss { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 14px 28px; margin: 0; }
+dl.gloss dt { font-family: var(--mono); font-size: 14px; color: var(--accent); padding-top: 3px; }
+dl.gloss dd { margin: 0; }
+@media (max-width: 480px) { dl.gloss { grid-template-columns: 1fr; gap: 4px; } dl.gloss dd { margin-bottom: 12px; } }
+
+/* Paths */
+.paths { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+.path { border: 1px solid var(--line); background: var(--surface); padding: 22px; display: grid; gap: 10px; align-content: start; }
+.path .glyph { font-family: var(--mono); font-size: 13px; color: var(--signal); }
+.path p { font-size: 15px; color: var(--muted); }
+
+ol.code { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: c; max-width: 70ch; }
+ol.code li { counter-increment: c; display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 12px; padding: 16px 0; border-top: 1px solid var(--line); }
+ol.code li::before { content: "§" counter(c); font-family: var(--mono); color: var(--accent); font-size: 14px; padding-top: 4px; }
+ol.code strong { font-family: var(--display); font-size: 22px; text-transform: uppercase; letter-spacing: .02em; display: block; line-height: 1.1; margin-bottom: 4px; }
+
+/* Cycle timeline */
+.timeline-box { overflow-x: auto; border: 1px solid var(--line); background: var(--surface); }
+.timeline { min-width: 640px; padding: 24px; display: grid; gap: 16px; }
+.days { display: grid; grid-template-columns: repeat(15, 1fr); gap: 3px; }
+.day { height: 34px; background: var(--line); position: relative; }
+.day.meet { background: var(--accent); }
+.day.prop { background: var(--signal); opacity: .55; }
+.day.log { background: var(--signal); }
+.ticks { display: grid; grid-template-columns: repeat(15, 1fr); gap: 3px; font-family: var(--mono); font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.legend i { display: inline-block; width: 12px; height: 12px; margin-right: 6px; vertical-align: -1px; }
+
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; }
+.step { display: grid; gap: 6px; align-content: start; }
+.step .when { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: .06em; text-transform: uppercase; }
+.step p { font-size: 15px; color: var(--muted); }
+
+.loop svg { width: 100%; max-width: 420px; height: auto; display: block; }
+.loop .node { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.loop .node.hot { stroke: var(--accent); stroke-width: 2.5; }
+.loop text { fill: var(--ink); font-family: var(--display); font-weight: 800; font-size: 22px; text-transform: uppercase; }
+.loop text.sub { font-family: var(--mono); font-weight: 500; font-size: 11px; fill: var(--muted); text-transform: none; }
+.loop .arc { fill: none; stroke: var(--signal); stroke-width: 2; }
+.loop .arrowhead { fill: var(--signal); }
+.loop .center { fill: var(--accent); font-size: 16px; }
+
+table.log { width: 100%; border-collapse: collapse; font-size: 15px; }
+.log-box { overflow-x: auto; }
+table.log th, table.log td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.log th { font-family: var(--mono); font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+table.log td:first-child { font-family: var(--mono); font-size: 13px; color: var(--signal); white-space: nowrap; }
+
+/* Clubs */
+.kit { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.kit div { background: var(--surface); padding: 20px; display: grid; gap: 6px; align-content: start; }
+.kit .n { font-family: var(--display); font-weight: 900; font-size: 44px; color: var(--accent); line-height: 1; }
+.kit p { font-size: 15px; color: var(--muted); }
+
+.org { border: 1px solid var(--line); padding: 24px; display: grid; gap: 18px; background: var(--surface); }
+.org-tree { display: grid; gap: 10px; font-family: var(--mono); font-size: 14px; }
+.org-tree .root { color: var(--ink); }
+.org-tree .branch { padding-left: 22px; border-left: 1px solid var(--line); margin-left: 6px; display: grid; gap: 8px; }
+.org-tree .branch div::before { content: "├─ "; color: var(--muted); }
+.org-tree .branch div:last-child::before { content: "└─ "; }
+.org-tree .planned { color: var(--muted); }
+
+.join { background: var(--ink); color: var(--bg); padding-block: 40px; display: grid; gap: 18px; }
+.join-inner { display: grid; gap: 16px; }
+.join .label { color: var(--accent); }
+.join h3 { font-size: clamp(36px, 6vw, 60px); }
+.join p { max-width: 58ch; }
+.slots { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.slot { border: 1px dashed currentColor; padding: 14px; font-family: var(--mono); font-size: 13px; opacity: .85; }
+.slot b { display: block; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; font-size: 11px; margin-bottom: 4px; opacity: .7; }
+
+.next { font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; text-decoration: none; color: var(--accent); justify-self: start; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+
+footer { border-top: 1px solid var(--line); }
+footer .wrap { padding-block: 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) { #aword { transition: none; } }
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#home">A<span>CCRU</span></a>
+    <nav class="pages" aria-label="Pages">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#culture">Cyberian Culture</a></li>
+        <li><a href="#adventurer">Become an Adventurer</a></li>
+        <li><a href="#method">The Method</a></li>
+        <li><a href="#clubs">Clubs &amp; Outposts</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- HOME -->
+<section class="page wrap" id="home" data-page>
+  <div class="hero">
+    <span class="label">Austin, Texas · Applied cybernetics social club</span>
+    <h1 class="mark" aria-label="ACCRU"><span class="a">A</span>CCRU</h1>
+    <div class="expand">
+      <span>A = <span id="aword">Applied</span></span>
+      <span><b>Applied Cyberian Culture Research Unit</b></span>
+    </div>
+    <p class="lede">A social club for creators who would rather make culture than consume it. We meet, we make something, we send it out into the world, and we watch where it goes.</p>
+    <p class="tagline"><span>Create.</span> <span>Propagate.</span> <span>Observe.</span></p>
+  </div>
+
+  <p class="bridge">Most people live on surrogates: consuming instead of creating, watching instead of acting. Cyberians choose the real thing. We gather to make, to propagate, and to strive together, because greatness isn't a trait of the few. It's what a network produces when its members stop spectating.</p>
+
+  <div class="doors">
+    <a class="door" href="#culture">
+      <span class="label">01 · Culture</span>
+      <h3>What Cyberians are</h3>
+      <p>A creator tribe that treats its own culture-making as a live experiment.</p>
+      <span class="go">Read →</span>
+    </a>
+    <a class="door" href="#adventurer">
+      <span class="label">02 · Adventurer</span>
+      <h3>How you join in</h3>
+      <p>Stop being a receiver. Become a source. Four ways to step into the arena.</p>
+      <span class="go">Read →</span>
+    </a>
+    <a class="door" href="#method">
+      <span class="label">03 · Method</span>
+      <h3>The two-week cycle</h3>
+      <p>Every meetup launches something. Two weeks later we report what happened.</p>
+      <span class="go">Read →</span>
+    </a>
+    <a class="door" href="#clubs">
+      <span class="label">04 · Clubs</span>
+      <h3>Start an outpost</h3>
+      <p>Anyone can start a Cyberian Club. Outposts get built, not chartered.</p>
+      <span class="go">Read →</span>
+    </a>
+  </div>
+</section>
+
+<!-- CULTURE -->
+<section class="page wrap" id="culture" data-page hidden>
+  <div class="page-head">
+    <span class="label">01 · Cyberian Culture</span>
+    <h2>Applied cybernetics, lived as a social scene</h2>
+    <p class="lede">It isn't a game and it isn't a think tank. It's a tribe of creators and creatives who value production and want to build a better future, and who treat their own culture-making as a live experiment.</p>
+  </div>
+
+  <div class="principles">
+    <div class="principle">
+      <h3>Production over consumption</h3>
+      <p>We are streamers, writers, artists, builders and organizers. The common thread is that we make things. Watching is fine. Making is the point.</p>
+    </div>
+    <div class="principle">
+      <h3>Every meetup is an experiment</h3>
+      <p>Each gathering picks one thing to make and spread: a meme, a bit, a piece of work, an experiment. Members carry it out for two weeks and we see how it travels.</p>
+    </div>
+    <div class="principle">
+      <h3>The research stays quiet</h3>
+      <p>A neutral research layer logs, tracks and reports on the club itself. It doesn't steer. The group studies its own cycle of intelligence while running it.</p>
+    </div>
+    <div class="principle">
+      <h3>Decentralized by design</h3>
+      <p>Anyone can start a Cyberian Club. There is no head office to ask permission from. The whole thing is built to outgrow its founders.</p>
+    </div>
+    <div class="principle">
+      <h3>Shared success</h3>
+      <p>The old clubs worked because members lifted each other: jobs, introductions, collaborations, opportunities. Cyberians play for the tribe, and wins are shared.</p>
+    </div>
+    <div class="principle">
+      <h3>A civilizational drive</h3>
+      <p>The long aim is a futuristic new culture with ambition built in. Discernment in every medium, from great books to great streams. No timidity, no apathy.</p>
+    </div>
+  </div>
+
+  <div class="split">
+    <div style="display:grid;gap:14px">
+      <span class="label">Against the surrogate life</span>
+      <h3>Greatness, made collective</h3>
+    </div>
+    <div class="prose">
+      <p>Most people want more than they have: to be stronger, sharper, more cultured, more successful. Most also spend their days on stand-ins for those things. Games stand in for winning. Feeds stand in for friendship. Watching stands in for doing.</p>
+      <p>Cyberian culture is a way out of the stand-ins. It asks you to take the real swing, in public, with other people, and to accept that striving for excellence means you will sometimes fail. Failure is data. The tribe learns from it.</p>
+      <p>Greatness here isn't a club for the gifted. It's what happens when a network of ordinary, ambitious people stops spectating and starts producing together.</p>
+    </div>
+  </div>
+
+  <div class="split">
+    <div style="display:grid;gap:14px">
+      <span class="label">Field vocabulary</span>
+      <h3>Words you'll hear</h3>
+      <p style="color:var(--muted);font-size:15px">From Virtualism, the framework behind the club's research.</p>
+    </div>
+    <dl class="gloss">
+      <dt>plur</dt><dd>A networked collective organism. A club is a small one.</dd>
+      <dt>sing</dt><dd>An individual. You, before and after you join the plur.</dd>
+      <dt>the tee</dt><dd>The telethetic information environment: the shared world of screens, feeds and signals we all live in.</dd>
+      <dt>temetics</dt><dd>The study of how ideas and units of culture move and mutate through the tee.</dd>
+      <dt>OSRI</dt><dd>Observe, Self-React, Interact. The cycle of intelligence, for a person or a plur.</dd>
+      <dt>outpost</dt><dd>A local Cyberian Club, started by whoever decides to start one.</dd>
+    </dl>
+  </div>
+
+  <a class="next" href="#adventurer">Next: Become an Adventurer →</a>
+</section>
+
+<!-- ADVENTURER -->
+<section class="page wrap" id="adventurer" data-page hidden>
+  <div class="page-head">
+    <span class="label">02 · Become a Cyberian Adventurer</span>
+    <h2>From receiver to source</h2>
+    <p class="lede">Becoming a Cyberian adventurer means you stop being a passive receiver in the tee and become a deliberate source. You step out from behind the screen and into the arena.</p>
+  </div>
+
+  <div class="prose">
+    <p>It's part guild membership, part field research, part frontier settling. You make things for the tribe, not only for yourself. You treat everything you create as a probe into how collective intelligence forms. And you go somewhere new with it.</p>
+  </div>
+
+  <div class="paths">
+    <div class="path">
+      <span class="glyph">PATH / STREAM</span>
+      <h3>Go live</h3>
+      <p>Broadcast the meetups, the experiments and your own work. Cross-pollinate with other streamers in the club.</p>
+    </div>
+    <div class="path">
+      <span class="glyph">PATH / BUILD</span>
+      <h3>Make the thing</h3>
+      <p>Write it, design it, code it, film it. Bring a creation to the meetup and let the tribe carry it out.</p>
+    </div>
+    <div class="path">
+      <span class="glyph">PATH / GUARD</span>
+      <h3>Join the Guard</h3>
+      <p>Represent the tribe at streamer events and competitions, like Safe Zone. Play to win, and share the prize.</p>
+    </div>
+    <div class="path">
+      <span class="glyph">PATH / OUTPOST</span>
+      <h3>Found an outpost</h3>
+      <p>Start a Cyberian Club where you live. No charter needed. See Clubs &amp; Outposts for the kit.</p>
+    </div>
+  </div>
+
+  <div class="split">
+    <div style="display:grid;gap:14px">
+      <span class="label">The adventurer's code</span>
+      <h3>Five commitments</h3>
+    </div>
+    <ol class="code">
+      <li><div><strong>Be a source</strong>Put something into the world every cycle, however small.</div></li>
+      <li><div><strong>Play for the tribe</strong>Your win is the club's win. Lift the people next to you.</div></li>
+      <li><div><strong>Treat it as a probe</strong>Everything you make is also a question about how culture moves. Pay attention to the answer.</div></li>
+      <li><div><strong>Welcome failure</strong>Striving means missing sometimes. A flop that gets logged teaches the plur more than a safe bet.</div></li>
+      <li><div><strong>Leave the screen</strong>Show up in person. The arena is a room full of people, not a comment section.</div></li>
+    </ol>
+  </div>
+
+  <a class="next" href="#method">Next: The Method →</a>
+</section>
+
+<!-- METHOD -->
+<section class="page wrap" id="method" data-page hidden>
+  <div class="page-head">
+    <span class="label">03 · The Method</span>
+    <h2>Make it, spread it, see what happens</h2>
+    <p class="lede">ACCRU runs on a two-week cycle. Each meetup launches one thing. The next meetup reports on where it went.</p>
+  </div>
+
+  <div class="timeline-box" role="img" aria-label="A 14-day cycle: meetup on day 0, propagation days 1 to 13, logging throughout, report and next launch on day 14">
+    <div class="timeline">
+      <div class="days">
+        <div class="day meet"></div>
+        <div class="day prop"></div><div class="day prop"></div><div class="day log"></div><div class="day prop"></div><div class="day prop"></div><div class="day prop"></div><div class="day log"></div>
+        <div class="day prop"></div><div class="day prop"></div><div class="day log"></div><div class="day prop"></div><div class="day prop"></div><div class="day log"></div>
+        <div class="day meet"></div>
+      </div>
+      <div class="ticks">
+        <span>D0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>D14</span>
+      </div>
+      <div class="legend">
+        <span><i style="background:var(--accent)"></i>Meetup: launch + report</span>
+        <span><i style="background:var(--signal);opacity:.55"></i>Members propagate</span>
+        <span><i style="background:var(--signal)"></i>Log check-in</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step"><span class="when">Day 0</span><h3>Pick</h3><p>The meetup chooses one thing to make and spread: a meme, a bit, an experiment. The session is streamed.</p></div>
+    <div class="step"><span class="when">Days 1–13</span><h3>Propagate</h3><p>Members carry it into their own channels, streams and circles, each in their own way.</p></div>
+    <div class="step"><span class="when">Throughout</span><h3>Log</h3><p>The research layer records where it showed up, who picked it up, and how it changed along the way.</p></div>
+    <div class="step"><span class="when">Day 14</span><h3>Report</h3><p>The next meetup opens with what happened. Then it picks the next thing.</p></div>
+  </div>
+
+  <div class="split">
+    <div class="loop">
+      <svg viewBox="0 0 400 380" role="img" aria-label="The OSRI loop: Observe, Self-React, Interact, cycling">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+            <path class="arrowhead" d="M0,0 L10,5 L0,10 z"/>
+          </marker>
+        </defs>
+        <path class="arc" d="M238,74 A150,150 0 0 1 330,246" marker-end="url(#ah)"/>
+        <path class="arc" d="M282,318 A150,150 0 0 1 118,318" marker-end="url(#ah)"/>
+        <path class="arc" d="M70,246 A150,150 0 0 1 162,74" marker-end="url(#ah)"/>
+        <circle class="node hot" cx="200" cy="60" r="44"/>
+        <text x="200" y="66" text-anchor="middle">Observe</text>
+        <circle class="node" cx="330" cy="290" r="50"/>
+        <text x="330" y="288" text-anchor="middle">Self-</text>
+        <text x="330" y="310" text-anchor="middle">React</text>
+        <circle class="node" cx="70" cy="290" r="48"/>
+        <text x="70" y="296" text-anchor="middle">Interact</text>
+        <text class="center" x="200" y="200" text-anchor="middle">OSRI</text>
+        <text class="sub" x="200" y="220" text-anchor="middle">cycle of intelligence</text>
+      </svg>
+    </div>
+    <div class="prose">
+      <span class="label">Why it works this way</span>
+      <h3>The plur studies itself</h3>
+      <p>Every intelligent system runs a loop: it observes the world, reacts internally, and interacts back. A club is no different. The two-week cycle is that loop made visible. We observe how our creation lands, react as a group, and interact with the next round.</p>
+      <p>The research layer is neutral. It records and reports. It does not run campaigns, pick winners, or steer members. What we learn about how ideas move from sources to receivers comes from watching ourselves honestly.</p>
+      <p>Everyone at a meetup knows it is streamed and logged. Being open about the research is part of the culture.</p>
+    </div>
+  </div>
+
+  <div style="display:grid;gap:16px">
+    <span class="label">What gets logged each cycle</span>
+    <div class="log-box">
+      <table class="log">
+        <thead><tr><th>Field</th><th>What it records</th></tr></thead>
+        <tbody>
+          <tr><td>artifact</td><td>The thing the meetup chose to make, and who made it</td></tr>
+          <tr><td>channels</td><td>Where members took it: streams, posts, group chats, in person</td></tr>
+          <tr><td>pickup</td><td>Who outside the club repeated, remixed or responded to it</td></tr>
+          <tr><td>mutation</td><td>How it changed as it moved, and which version spread furthest</td></tr>
+          <tr><td>notes</td><td>What the group noticed, felt and would try differently</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <a class="next" href="#clubs">Next: Clubs &amp; Outposts →</a>
+</section>
+
+<!-- CLUBS -->
+<section class="page wrap" id="clubs" data-page hidden>
+  <div class="page-head">
+    <span class="label">04 · Clubs &amp; Outposts</span>
+    <h2>Outposts get built, not chartered</h2>
+    <p class="lede">ACCRU is the Austin club. Anywhere else, anyone can start a Cyberian Club. You don't need permission. You need a few people and a rhythm.</p>
+  </div>
+
+  <div style="display:grid;gap:16px">
+    <span class="label">The outpost kit</span>
+    <div class="kit">
+      <div><span class="n">1</span><h3>A place</h3><p>A living room, a bar back room, a studio. Somewhere you can make noise and set up a camera.</p></div>
+      <div><span class="n">2×</span><h3>A rhythm</h3><p>Twice a month. Often enough to keep momentum, spaced enough for two weeks of propagation.</p></div>
+      <div><span class="n">1</span><h3>A stream</h3><p>Broadcast every meetup. The stream is how the outpost talks to the rest of the network.</p></div>
+      <div><span class="n">1</span><h3>A thing to spread</h3><p>Leave every meetup with one creation to carry out. Report back next time.</p></div>
+    </div>
+  </div>
+
+  <div class="split">
+    <div class="org">
+      <span class="label">Structure (in development)</span>
+      <div class="org-tree">
+        <div class="root">Cyberian Institute for Cybernetic Social Research</div>
+        <div class="branch">
+          <div>ACCRU · Applied Cyberian Culture Research Unit</div>
+          <div>Cyberian Clubs · the decentralized outpost network</div>
+          <div class="planned">Outpost Building summit · inaugural, planned</div>
+        </div>
+      </div>
+    </div>
+    <div class="prose">
+      <span class="label">How it fits together</span>
+      <h3>The Cyberian Institute</h3>
+      <p>The Institute is the planned home for the research and the network. ACCRU is its flagship club and research unit in Austin. Cyberian Clubs is the wider network of outposts.</p>
+      <p>Outposts aren't official chapters. They run themselves. The Institute's job is to support them: sharing what the research learns, connecting outposts to each other, and, as it grows, helping fund clubs that are doing good work.</p>
+      <p>The first big gathering of outposts is planned as an Outpost Building summit.</p>
+    </div>
+  </div>
+
+  <a class="next" href="#home">Back to the start →</a>
+</section>
+
+</main>
+
+<div class="join" id="join">
+  <div class="wrap join-inner">
+    <span class="label">Join the Austin club</span>
+    <h3>Come make something</h3>
+    <p>ACCRU meets in Austin twice a month. Bring a project, a camera, or just yourself. Every meetup is live, and every meetup sends something out into the world.</p>
+    <div class="slots">
+      <div class="slot"><b>Next meetup</b>Date and venue to be announced</div>
+      <div class="slot"><b>Stream</b>Channel link coming soon</div>
+      <div class="slot"><b>Writing</b>thevatstack.substack.com</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>ACCRU · Austin, TX</span>
+    <span>Create. Propagate. Observe.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var pages = Array.prototype.slice.call(document.querySelectorAll('[data-page]'));
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.pages a'));
+  function show() {
+    var id = (location.hash || '#home').slice(1);
+    if (!document.getElementById(id) || !document.getElementById(id).hasAttribute('data-page')) id = 'home';
+    pages.forEach(function (p) { p.hidden = p.id !== id; });
+    links.forEach(function (a) {
+      if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+    var cur = document.querySelector('nav.pages a[aria-current]');
+    if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  }
+  window.addEventListener('hashchange', function () { show(); window.scrollTo(0, 0); });
+  show();
+
+  var w = document.getElementById('aword');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (w && !reduce) {
+    var words = ['Applied', 'Austin'], i = 0;
+    setInterval(function () {
+      w.style.opacity = 0;
+      setTimeout(function () { i = (i + 1) % words.length; w.textContent = words[i]; w.style.opacity = 1; }, 350);
+    }, 2600);
+  }
+})();
+</script>
+
+</body></html>
