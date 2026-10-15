@@ -2,36 +2,28 @@
 <title>ACCRU</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@75..150,600..900&family=Spectral:ital,wght@0,400;0,600;1,400&family=Martian+Mono:wdth,wght@87.5,400;87.5,500&display=swap">
 <style>
 /* Layout: a field manual for a frontier research club. Sticky signal-strip nav, one "page" at a time, long-form manifesto columns with mono instrument labels. */
 :root {
-  --bg: #E9EDF1;
-  --surface: #F6F8FA;
-  --ink: #0F1A24;
-  --muted: #4E5C6A;
-  --line: #C3CDD7;
-  --accent: #C9421B;
-  --signal: #1D6A86;
-  --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
-  --body: "Literata", Georgia, "Times New Roman", serif;
-  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0B1218; --surface: #111B24; --ink: #E4EAF0; --muted: #93A2B1;
-    --line: #233140; --accent: #FF6B3D; --signal: #62B4D2; color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0B1218; --surface: #111B24; --ink: #E4EAF0; --muted: #93A2B1;
-  --line: #233140; --accent: #FF6B3D; --signal: #62B4D2; color-scheme: dark;
+  /* Locked to dark on every device */
+  color-scheme: dark;
+  --bg: #0B1218;
+  --surface: #111B24;
+  --ink: #E4EAF0;
+  --muted: #93A2B1;
+  --line: #233140;
+  --accent: #FF6B3D;
+  --signal: #62B4D2;
+  --display: "Anybody", "Arial Black", Impact, sans-serif;
+  --body: "Spectral", Georgia, "Times New Roman", serif;
+  --mono: "Martian Mono", ui-monospace, Menlo, Consolas, monospace;
 }
 
 * { box-sizing: border-box; }
 body {
   background: var(--bg); color: var(--ink);
-  font-family: var(--body); font-size: 17px; line-height: 1.6;
+  font-family: var(--body); font-size: 17px; line-height: 1.6; font-optical-sizing: auto;
 }
 a { color: inherit; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
@@ -49,7 +41,7 @@ header.top {
 }
 header.top .wrap { display: flex; align-items: center; gap: 20px; padding-block: 10px; }
 .brand {
-  font-family: var(--display); font-weight: 900; font-size: 26px; letter-spacing: .04em;
+  font-family: var(--display); font-weight: 900; font-stretch: 150%; font-size: 22px; letter-spacing: 0;
   text-decoration: none; flex-shrink: 0;
 }
 .brand span { color: var(--accent); }
@@ -68,9 +60,8 @@ nav.pages a[aria-current="page"] { color: var(--ink); border-bottom-color: var(-
   font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
   color: var(--signal);
 }
-h1, h2, h3 { font-family: var(--display); line-height: .95; margin: 0; text-wrap: balance; }
-h2 { font-size: clamp(44px, 8vw, 84px); font-weight: 900; text-transform: uppercase; letter-spacing: .01em; }
-h3 { font-size: 30px; font-weight: 800; text-transform: uppercase; letter-spacing: .02em; }
+h1, h2, h3 { font-family: var(--display); line-height: .95; margin: 0; text-wrap: balance; }h2 { font-size: clamp(34px, 6.4vw, 68px); font-weight: 900; font-stretch: 112%; text-transform: uppercase; letter-spacing: -.01em; }
+h3 { font-size: 23px; font-weight: 800; font-stretch: 110%; text-transform: uppercase; letter-spacing: 0; line-height: 1.05; }
 p { margin: 0; }
 .prose { max-width: 64ch; display: grid; gap: 1em; }
 .lede { font-size: clamp(20px, 2.6vw, 24px); line-height: 1.45; max-width: 36ch; }
@@ -82,7 +73,7 @@ main section.page { padding-block: 48px 72px; display: grid; gap: 56px; }
 /* Hero */
 .hero { display: grid; gap: 22px; padding-top: 12px; }
 .mark {
-  font-size: clamp(110px, 26vw, 280px); font-weight: 900; letter-spacing: -.01em; line-height: .8;
+  font-size: clamp(64px, 17vw, 200px); font-weight: 900; font-stretch: 150%; letter-spacing: -.02em; line-height: .85;
   display: flex; align-items: flex-end;
 }
 .mark .a { color: var(--accent); }
@@ -90,8 +81,8 @@ main section.page { padding-block: 48px 72px; display: grid; gap: 56px; }
 .expand b { color: var(--ink); font-weight: 500; }
 #aword { display: inline-block; min-width: 7ch; color: var(--accent); transition: opacity .35s; }
 .tagline {
-  font-family: var(--display); font-weight: 800; font-size: clamp(30px, 5vw, 48px);
-  text-transform: uppercase; line-height: 1; letter-spacing: .02em;
+  font-family: var(--display); font-weight: 800; font-stretch: 125%; font-size: clamp(24px, 4.2vw, 40px);
+  text-transform: uppercase; line-height: 1.05; letter-spacing: -.01em;
 }
 .tagline span:nth-child(2) { color: var(--signal); }
 .tagline span:nth-child(3) { color: var(--accent); }
@@ -133,7 +124,7 @@ dl.gloss dd { margin: 0; }
 ol.code { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: c; max-width: 70ch; }
 ol.code li { counter-increment: c; display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 12px; padding: 16px 0; border-top: 1px solid var(--line); }
 ol.code li::before { content: "§" counter(c); font-family: var(--mono); color: var(--accent); font-size: 14px; padding-top: 4px; }
-ol.code strong { font-family: var(--display); font-size: 22px; text-transform: uppercase; letter-spacing: .02em; display: block; line-height: 1.1; margin-bottom: 4px; }
+ol.code strong { font-family: var(--display); font-size: 18px; font-stretch: 110%; font-weight: 800; text-transform: uppercase; letter-spacing: 0; display: block; line-height: 1.1; margin-bottom: 4px; }
 
 /* Cycle timeline */
 .timeline-box { overflow-x: auto; border: 1px solid var(--line); background: var(--surface); }
@@ -155,7 +146,7 @@ ol.code strong { font-family: var(--display); font-size: 22px; text-transform: u
 .loop svg { width: 100%; max-width: 420px; height: auto; display: block; }
 .loop .node { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
 .loop .node.hot { stroke: var(--accent); stroke-width: 2.5; }
-.loop text { fill: var(--ink); font-family: var(--display); font-weight: 800; font-size: 22px; text-transform: uppercase; }
+.loop text { fill: var(--ink); font-family: var(--display); font-weight: 800; font-size: 15px; text-transform: uppercase; }
 .loop text.sub { font-family: var(--mono); font-weight: 500; font-size: 11px; fill: var(--muted); text-transform: none; }
 .loop .arc { fill: none; stroke: var(--signal); stroke-width: 2; }
 .loop .arrowhead { fill: var(--signal); }
@@ -170,7 +161,7 @@ table.log td:first-child { font-family: var(--mono); font-size: 13px; color: var
 /* Clubs */
 .kit { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
 .kit div { background: var(--surface); padding: 20px; display: grid; gap: 6px; align-content: start; }
-.kit .n { font-family: var(--display); font-weight: 900; font-size: 44px; color: var(--accent); line-height: 1; }
+.kit .n { font-family: var(--display); font-weight: 900; font-stretch: 150%; font-size: 38px; color: var(--accent); line-height: 1; }
 .kit p { font-size: 15px; color: var(--muted); }
 
 .org { border: 1px solid var(--line); padding: 24px; display: grid; gap: 18px; background: var(--surface); }
